@@ -1,0 +1,106 @@
+// Java Program to Insert Details in a Table using JDBC 
+// Connections class 
+  
+// Importing all SQL classes 
+// Showing linking of created database 
+ 
+import java.sql.*; 
+  
+public class connection { 
+  
+    // object of Connection class 
+    // initially assigned NULL 
+    Connection con = null; 
+  
+    public static Connection connectDB() 
+  
+    { 
+  
+        try { 
+  
+            // Step 2 is involved among 7 in Connection 
+            // class i.e Load and register drivers 
+  
+            // 2(a) Loading drivers using forName() method 
+            // name of database here is mysql 
+            Class.forName("com.mysql.cj.jdbc.Driver"); 
+  
+            // 2(b) Registering drivers using DriverManager 
+            Connection con = DriverManager.getConnection( 
+                "jdbc:mysql://localhost:3306/college", 
+                "root", "1234"); 
+            // For college Database here (custom sets) 
+            // root is the username, and 
+            // 1234 is the password 
+  
+            // returning the object of Connection class 
+            // to be used in main class (Example2) 
+            return con; 
+        } 
+  
+        // Catch block to handle the exceptions 
+        catch (SQLException | ClassNotFoundException e) { 
+  
+            // Print the exceptions 
+            System.out.println(e); 
+  
+            return null; 
+        } 
+    } 
+}
+
+
+
+
+
+// Java Program retrieving contents of 
+// Table Using JDBC connection 
+ // Java code producing output which is based 
+// on values stored inside the "collegedata" table in DB 
+// Java Program to Insert Details in a Table using JDBC and retrieve/ display data 
+// Main class 
+  
+// Step 1: Importing DB classes 
+// DB is SQL here 
+import java.sql.*; 
+  
+// Main/App class of above Connection class 
+public class GFG { 
+  
+    // MAin driver method 
+    public static void main(String[] args) 
+    { 
+        // Step 2: Showing above Connection class i.e 
+        // loading and registering drivers 
+  
+        // Initially assigning NULL parameters 
+        // to object of Connection class 
+        Connection con = null; 
+        PreparedStatement ps = null; 
+  
+        // Step 3: Establish the connection 
+        con = connection.connectDB(); 
+  
+        // Try block to check if exception/s occurs 
+        try { 
+  
+            // Step 4: Create a statement 
+            String sql = "insert into  collegedata 
+values('rmdssoe','RMD','rmd@email.com','warje','1239087474')"; 
+  
+            // Step 5: Execute the query 
+            ps = con.prepareStatement(sql); 
+  
+            // Step 6: Process the results 
+            ps.execute(); 
+        } 
+  
+        // Optional but recommended 
+// Step 7: Close the connection 
+// Catch block to handle the exception/s 
+catch (Exception e) { 
+// Print the exception 
+System.out.println(e); 
+} 
+} 
+} 
